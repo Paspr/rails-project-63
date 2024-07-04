@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "Forms Generator is a library which helps to create forms in site templates in a convenient way."
   spec.description = "Allows to reduce the code of forms due to automatic processing of errors and various controls."
   spec.homepage = "https://github.com/Paspr/rails-project-63"
-  spec.required_ruby_version = ">= 2.6.0"
+  spec.required_ruby_version = ">= 3.2.2"
 
   spec.metadata["allowed_push_host"] = "https://github.com/Paspr/rails-project-63"
 
