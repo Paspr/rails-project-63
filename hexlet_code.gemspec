@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["osperevod@gmail.com"]
 
   spec.summary = "Forms Generator is a library which helps to create forms in site templates in a convenient way."
-  spec.description = "Forms Generator is a library which helps to create forms in site templates in a convenient way. Allows to reduce the code of form description many times due to automatic processing of errors and various controls."
+  spec.description = "Allows to reduce the code of forms due to automatic processing of errors and various controls."
   spec.homepage = "https://github.com/Paspr/rails-project-63"
   spec.required_ruby_version = ">= 2.6.0"
 
