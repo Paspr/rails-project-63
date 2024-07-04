@@ -7,7 +7,9 @@ class TestHexletCode < Minitest::Test
     refute_nil ::HexletCode::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  def test_tag_build_method
+    expected = "<input type=\"submit\" value=\"Save\">"
+    actual = HexletCode::Tag.build("input", type: "submit", value: "Save")
+    assert_equal actual, expected
   end
 end
