@@ -3,9 +3,8 @@
 module HexletCode
   module Tag
     def self.build(tag, options = {})
-      attributes = []
-      options.each do |key, value|
-        attributes << "#{key}=\"#{value}\""
+      attributes = options.map do |key, value|
+        "#{key}=\"#{value}\""
       end
       attributes.join(" ")
       if attributes.empty?
