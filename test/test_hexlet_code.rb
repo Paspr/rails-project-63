@@ -19,13 +19,13 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_user
-    expected = " <form action=\"#\" method=\"post\"></form>"
+    expected = "<form action=\"#\" method=\"post\"></form>"
     actual = HexletCode.form_for @user
     assert_equal actual, expected
   end
 
   def test_form_user_with_link
-    expected = " <form action=\"/users\" method=\"post\"></form>"
+    expected = "<form action=\"/users\" method=\"post\"></form>"
     actual = HexletCode.form_for @user, url: "/users"
     assert_equal actual, expected
   end
