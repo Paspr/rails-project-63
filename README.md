@@ -21,6 +21,8 @@ It will give the following form:
 
 ```ruby
 <form action="#" method="post">
+   <label for="job">Job</label>
    <textarea name="job" cols="50" rows="50">hexlet</textarea>
+   <input type="submit" value="Save">
 </form>
 ```
