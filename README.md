@@ -12,12 +12,15 @@ user = User2.new name: "rob", job: "hexlet", gender: "m"
 Now the forms can be generated the following way:
 
 ```ruby
-HexletCode.form_for user2, url: "#" do |f|
+HexletCode.form_for user, url: "#" do |f|
       f.input :job, as: :text, rows: 50, cols: 50
 end
 ```
+
 It will give the following form:
- <form action="#" method="post">
-   <input name="name" type="text" value="rob">
-   <textarea cols="20" rows="40" name="job">hexlet</textarea>
- </form>
+
+```ruby
+<form action="#" method="post">
+   <textarea name="job" cols="50" rows="50">hexlet</textarea>
+</form>
+```
