@@ -23,11 +23,6 @@ module HexletCode
       @inputs.each do |input|
         form << build_label(input[:attribute])
         form << build_field(input)
-        #  if input[:type] == :text
-        #           build_textarea(input[:attribute], input[:value], input[:options])
-        #         else
-        #           build_input(input[:attribute], input[:value], input[:options])
-        #         end
       end
       form << build_submit
       form << "</form>"
