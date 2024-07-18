@@ -21,15 +21,25 @@ module HexletCode
     def build(action)
       form = "<form action=\"#{action}\" method=\"post\">\n"
       @inputs.each do |input|
-        form << if input[:type] == :text
-                  build_textarea(input[:attribute], input[:value], input[:options])
-                else
-                  build_input(input[:attribute], input[:value], input[:options])
-                end
+        form << build_label(input[:attribute])
+        form << build_field(input)
+        #  if input[:type] == :text
+        #           build_textarea(input[:attribute], input[:value], input[:options])
+        #         else
+        #           build_input(input[:attribute], input[:value], input[:options])
+        #         end
       end
       form << build_submit
       form << "</form>"
       form
+    end
+
+    def build_field(input)
+      if input[:type] == :text
+        build_textarea(input[:attribute], input[:value], input[:options])
+      else
+        build_input(input[:attribute], input[:value], input[:options])
+      end
     end
 
     def build_input(name, value, options)
@@ -53,7 +63,11 @@ module HexletCode
     end
 
     def build_submit
-      "<input type='submit' value='#{@submit_text}'/>\n"
+      "   <input type=\"submit\" value=\"#{@submit_text}\">\n"
+    end
+
+    def build_label(name)
+      "   <label for=\"#{name}\">#{name.capitalize}</label>\n"
     end
   end
 end
