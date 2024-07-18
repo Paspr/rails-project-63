@@ -5,12 +5,17 @@ module HexletCode
     def initialize(object)
       @object = object
       @inputs = []
+      @submit_text = "Save"
     end
 
     def input(attribute, options = {})
       value = @object.public_send(attribute)
       type = options.fetch(:as, :input)
       @inputs << { attribute:, value:, type:, options: }
+    end
+
+    def submit(value = "Save")
+      @submit_text = value
     end
 
     def build(action)
@@ -22,6 +27,7 @@ module HexletCode
                   build_input(input[:attribute], input[:value], input[:options])
                 end
       end
+      form << build_submit
       form << "</form>"
       form
     end
@@ -44,6 +50,10 @@ module HexletCode
     def filter_attributes(options)
       attribute_strings = options.map { |key, value| "#{key}=\"#{value}\"" }
       attribute_strings.join(" ")
+    end
+
+    def build_submit
+      "<input type='submit' value='#{@submit_text}'/>\n"
     end
   end
 end
