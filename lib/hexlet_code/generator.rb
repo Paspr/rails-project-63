@@ -2,14 +2,17 @@
 
 module HexletCode
   class FormGenerator
-    def initialize(object)
-      @object = object
+    def initialize(user, url, method, attributes)
+      @user = user
+      @url = url
+      @method = method
+      @attributes = attributes
       @inputs = []
       @submit_text = "Save"
     end
 
     def input(attribute, options = {})
-      value = @object.public_send(attribute)
+      value = @user.public_send(attribute)
       type = options.fetch(:as, :input)
       @inputs << { attribute:, value:, type:, options: }
     end
@@ -18,8 +21,8 @@ module HexletCode
       @submit_text = value
     end
 
-    def build(action)
-      form = "<form action=\"#{action}\" method=\"post\">\n"
+    def build
+      form = build_form_beginning
       @inputs.each do |input|
         form << build_label(input[:attribute])
         form << build_field(input)
@@ -27,6 +30,12 @@ module HexletCode
       form << build_submit
       form << "</form>"
       form
+    end
+
+    def build_form_beginning
+      attributes = filter_attributes(@attributes)
+      attributes = " #{attributes}" unless attributes.empty?
+      "<form action=\"#{@url}\" method=\"#{@method}\"#{attributes}>\n"
     end
 
     def build_field(input)
