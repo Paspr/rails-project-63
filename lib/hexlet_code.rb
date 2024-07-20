@@ -6,11 +6,10 @@ require_relative "hexlet_code/generator"
 module HexletCode
   autoload(:Tag, "hexlet_code/tag.rb")
 
-  def self.form_for(user, url = {}, &block)
-    action = url.empty? ? "#" : url[:url]
-    form_builder = FormGenerator.new(user)
-    block.call(form_builder)
-    form_builder.build(action)
+  def self.form_for(user, url: "#", method: :post, **attributes, &block)
+    form_builder = FormGenerator.new(user, url:, method:, **attributes)
+    block.call(form_builder) if block_given?
+    form_builder.build
   end
 
   class Error < StandardError; end

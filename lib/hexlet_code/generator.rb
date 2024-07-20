@@ -2,7 +2,7 @@
 
 module HexletCode
   class FormGenerator
-    def initialize(user, url, method, attributes)
+    def initialize(user, url:, method:, **attributes)
       @user = user
       @url = url
       @method = method
