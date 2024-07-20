@@ -10,7 +10,7 @@ module HexletCode
       if attributes.empty?
         "<#{tag}>"
       else
-        "<#{tag} #{attributes.join(" ")}>"
+        "<#{tag} #{attributes.join(' ')}>"
       end
     end
   end
