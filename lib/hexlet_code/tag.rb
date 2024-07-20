@@ -6,7 +6,7 @@ module HexletCode
       attributes = options.map do |key, value|
         "#{key}=\"#{value}\""
       end
-      attributes.join(" ")
+      attributes.join(' ')
       if attributes.empty?
         "<#{tag}>"
       else

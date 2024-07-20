@@ -8,7 +8,7 @@ module HexletCode
       @method = method
       @attributes = attributes
       @inputs = []
-      @submit_text = "Save"
+      @submit_text = 'Save'
     end
 
     def input(attribute, options = {})
@@ -17,7 +17,7 @@ module HexletCode
       @inputs << { attribute:, value:, type:, options: }
     end
 
-    def submit(value = "Save")
+    def submit(value = 'Save')
       @submit_text = value
     end
 
@@ -28,7 +28,7 @@ module HexletCode
         form << build_field(input)
       end
       form << build_submit
-      form << "</form>"
+      form << '</form>'
       form
     end
 
@@ -63,7 +63,7 @@ module HexletCode
 
     def filter_attributes(options)
       attribute_strings = options.map { |key, value| "#{key}=\"#{value}\"" }
-      attribute_strings.join(" ")
+      attribute_strings.join(' ')
     end
 
     def build_submit
