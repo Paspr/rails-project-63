@@ -22,24 +22,21 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_form_user_case
-    expected_output_file = File.expand_path('./fixtures/form_user_case.html', __dir__)
-    expected_output = File.read(expected_output_file)
+    expected_output = return_expected_output('form_user_case.html')
     actual = HexletCode.form_for @user do |f| # rubocop:disable Lint/EmptyBlock
     end
     assert_equal actual, expected_output
   end
 
   def test_form_user_with_link_case
-    expected_output_file = File.expand_path('./fixtures/form_user_with_link_case.html', __dir__)
-    expected_output = File.read(expected_output_file)
+    expected_output = return_expected_output('form_user_with_link_case.html')
     actual = HexletCode.form_for @user, url: '/users' do |f| # rubocop:disable Lint/EmptyBlock
     end
     assert_equal actual, expected_output
   end
 
   def test_default_values_case
-    expected_output_file = File.expand_path('./fixtures/default_values_case.html', __dir__)
-    expected_output = File.read(expected_output_file)
+    expected_output = return_expected_output('default_values_case.html')
     actual = HexletCode.form_for @user2 do |f|
       f.input :job, as: :text
     end
@@ -47,8 +44,7 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_default_values_override_case
-    expected_output_file = File.expand_path('./fixtures/default_values_override_case.html', __dir__)
-    expected_output = File.read(expected_output_file)
+    expected_output = return_expected_output('default_values_override_case.html')
     actual = HexletCode.form_for @user2, url: '#' do |f|
       f.input :job, as: :text, rows: 50, cols: 50
     end
@@ -56,8 +52,7 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_hash_case
-    expected_output_file = File.expand_path('./fixtures/hash_case.html', __dir__)
-    expected_output = File.read(expected_output_file)
+    expected_output = return_expected_output('hash_case.html')
     actual = HexletCode.form_for @user2, url: '#' do |f|
       f.input :name, class: 'user-input'
       f.input :job
@@ -66,8 +61,7 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_base_case
-    expected_output_file = File.expand_path('./fixtures/base_case.html', __dir__)
-    expected_output = File.read(expected_output_file)
+    expected_output = return_expected_output('base_case.html')
     actual = HexletCode.form_for @user2 do |f|
       f.input :name
       f.input :job, as: :text
@@ -76,8 +70,7 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_save_button_override_name
-    expected_output_file = File.expand_path('./fixtures/override_save_button_name_case.html', __dir__)
-    expected_output = File.read(expected_output_file)
+    expected_output = return_expected_output('override_save_button_name_case.html')
     actual = HexletCode.form_for @user3, url: '#' do |f|
       f.input :name
       f.input :job
