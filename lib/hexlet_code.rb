@@ -12,7 +12,4 @@ module HexletCode
     block.call(form_builder) if block_given?
     form_builder.build
   end
-
-  class Error < StandardError; end
-  # Your code goes here...
 end
