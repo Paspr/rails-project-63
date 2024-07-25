@@ -18,21 +18,21 @@ class TestHexletCode < Minitest::Test
   def test_tag_build_method
     expected = '<input type="submit" value="Save">'
     actual = HexletCode::Tag.build('input', type: 'submit', value: 'Save')
-    assert_equal actual, expected
+    assert_equal expected, actual
   end
 
   def test_form_user_case
     expected_output = return_expected_output('form_user_case.html')
     actual = HexletCode.form_for @user do |f| # rubocop:disable Lint/EmptyBlock
     end
-    assert_equal actual, expected_output
+    assert_equal expected_output, actual
   end
 
   def test_form_user_with_link_case
     expected_output = return_expected_output('form_user_with_link_case.html')
     actual = HexletCode.form_for @user, url: '/users' do |f| # rubocop:disable Lint/EmptyBlock
     end
-    assert_equal actual, expected_output
+    assert_equal expected_output, actual
   end
 
   def test_default_values_case
@@ -40,7 +40,7 @@ class TestHexletCode < Minitest::Test
     actual = HexletCode.form_for @user2 do |f|
       f.input :job, as: :text
     end
-    assert_equal actual, expected_output
+    assert_equal expected_output, actual
   end
 
   def test_default_values_override_case
@@ -48,7 +48,7 @@ class TestHexletCode < Minitest::Test
     actual = HexletCode.form_for @user2, url: '#' do |f|
       f.input :job, as: :text, rows: 50, cols: 50
     end
-    assert_equal actual, expected_output
+    assert_equal expected_output, actual
   end
 
   def test_hash_case
@@ -57,7 +57,7 @@ class TestHexletCode < Minitest::Test
       f.input :name, class: 'user-input'
       f.input :job
     end
-    assert_equal actual, expected_output
+    assert_equal expected_output, actual
   end
 
   def test_base_case
@@ -66,7 +66,7 @@ class TestHexletCode < Minitest::Test
       f.input :name
       f.input :job, as: :text
     end
-    assert_equal actual, expected_output
+    assert_equal expected_output, actual
   end
 
   def test_save_button_override_name
@@ -76,6 +76,6 @@ class TestHexletCode < Minitest::Test
       f.input :job
       f.submit 'Wow'
     end
-    assert_equal actual, expected_output
+    assert_equal expected_output, actual
   end
 end
