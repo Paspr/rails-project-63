@@ -1,7 +1,7 @@
 # frozen_string_literal: false
 
 module HexletCode
-  class FormGenerator
+  class Generator
     def initialize(user, url:, method:, **attributes)
       @user = user
       @url = url
