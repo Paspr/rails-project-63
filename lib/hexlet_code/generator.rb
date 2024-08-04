@@ -2,76 +2,68 @@
 
 module HexletCode
   class Generator
-    def initialize(user, url:, method:, **attributes)
-      @user = user
-      @url = url
-      @method = method
-      @attributes = attributes
-      @inputs = []
-      @submit_text = 'Save'
+    def initialize(form_builder)
+      @form_builder = form_builder
+      @form_builder.add_default_submit
     end
 
-    def input(attribute, options = {})
-      value = @user.public_send(attribute)
-      type = options.fetch(:as, :input)
-      @inputs << { attribute:, value:, type:, options: }
+    def generate
+      form_attributes = {
+        action: @form_builder.instance_variable_get(:@url),
+        method: @form_builder.instance_variable_get(:@method)
+      }.merge(@form_builder.instance_variable_get(:@attributes))
+
+      build_tag('form', form_attributes, form_content)
     end
 
-    def submit(value = 'Save')
-      @submit_text = value
+    private
+
+    def form_content
+      content = @form_builder.form_elements.map do |element|
+        case element[:type]
+        when :input
+          "#{build_label(element[:attribute])}\n#{build_input(element)}"
+        when :submit
+          build_submit(element[:value])
+        end
+      end.join("\n")
+      "\n#{indent(content)}\n"
     end
 
-    def build
-      form = build_form_beginning
-      @inputs.each do |input|
-        form << build_label(input[:attribute])
-        form << build_field(input)
-      end
-      form << build_submit
-      form << '</form>'
-      form
+    def build_label(attribute)
+      indent(Tag.build('label', { for: attribute }, attribute.capitalize))
     end
 
-    def build_form_beginning
-      attributes = filter_attributes(@attributes)
-      attributes = " #{attributes}" unless attributes.empty?
-      "<form action=\"#{@url}\" method=\"#{@method}\"#{attributes}>\n"
-    end
-
-    def build_field(input)
-      if input[:type] == :text
-        build_textarea(input[:attribute], input[:value], input[:options])
-      else
-        build_input(input[:attribute], input[:value], input[:options])
-      end
-    end
-
-    def build_input(name, value, options)
-      filtered_options = options.except(:as)
-      attributes = filter_attributes(filtered_options)
-      attributes = " #{attributes}" unless attributes.empty?
-      "   <input name=\"#{name}\" type=\"text\" value=\"#{value}\"#{attributes}>\n"
+    def build_input(element)
+      name = element[:attribute]
+      value = element[:value]
+      options = element[:options]
+      type = element[:input_type]
+      input_html = type == :text ? build_textarea(name, value, options) : build_standard_input(name, value, options)
+      indent(input_html)
     end
 
     def build_textarea(name, value, options)
       rows = options.fetch(:rows, 40)
       cols = options.fetch(:cols, 20)
-      filtered_options = options.except(:as, :rows, :cols)
-      attributes = filter_attributes(filtered_options)
-      "   <textarea name=\"#{name}\" cols=\"#{cols}\" rows=\"#{rows}\"#{attributes}>#{value}</textarea>\n"
+      Tag.build('textarea', { name:, cols:, rows: }, value)
     end
 
-    def filter_attributes(options)
-      attribute_strings = options.map { |key, value| "#{key}=\"#{value}\"" }
-      attribute_strings.join(' ')
+    def build_standard_input(name, value, options)
+      filtered_options = options.except(:as)
+      Tag.build('input', { name:, type: 'text', value: }.merge(filtered_options))
     end
 
-    def build_submit
-      "   <input type=\"submit\" value=\"#{@submit_text}\">\n"
+    def build_submit(value)
+      indent(Tag.build('input', { type: 'submit', value: }))
     end
 
-    def build_label(name)
-      "   <label for=\"#{name}\">#{name.capitalize}</label>\n"
+    def build_tag(tag, options = {}, content = nil)
+      Tag.build(tag, options, content)
+    end
+
+    def indent(content)
+      content.lines.map { |line| "  #{line}" }.join
     end
   end
 end
