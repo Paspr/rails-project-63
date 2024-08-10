@@ -13,7 +13,7 @@ module HexletCode
         method: @form_builder.instance_variable_get(:@method)
       }.merge(@form_builder.instance_variable_get(:@attributes))
 
-      build_tag('form', form_attributes, form_content)
+      Tag.build('form', form_attributes, form_content)
     end
 
     private
@@ -56,10 +56,6 @@ module HexletCode
 
     def build_submit(value)
       indent(Tag.build('input', { type: 'submit', value: }))
-    end
-
-    def build_tag(tag, options = {}, content = nil)
-      Tag.build(tag, options, content)
     end
 
     def indent(content)
