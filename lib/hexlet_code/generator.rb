@@ -1,5 +1,9 @@
 # frozen_string_literal: false
 
+require_relative 'inputs/base_input'
+require_relative 'inputs/string_input'
+require_relative 'inputs/text_input'
+
 module HexletCode
   class Generator
     def initialize(form_builder)
@@ -35,23 +39,17 @@ module HexletCode
     end
 
     def build_input(element)
-      name = element[:attribute]
-      value = element[:value]
-      options = element[:options]
-      type = element[:input_type]
-      input_html = type == :text ? build_textarea(name, value, options) : build_standard_input(name, value, options)
-      indent(input_html)
+      input_class = select_input_class(element[:input_type])
+      input_instance = input_class.new(element[:attribute], element[:value], element[:options])
+      indent(input_instance.build)
     end
 
-    def build_textarea(name, value, options)
-      rows = options.fetch(:rows, 40)
-      cols = options.fetch(:cols, 20)
-      Tag.build('textarea', { name:, cols:, rows: }, value)
-    end
-
-    def build_standard_input(name, value, options)
-      filtered_options = options.except(:as)
-      Tag.build('input', { name:, type: 'text', value: }.merge(filtered_options))
+    def select_input_class(input_type)
+      if input_type == :text
+        HexletCode::Inputs::TextInput
+      else
+        HexletCode::Inputs::StringInput
+      end
     end
 
     def build_submit(value)
