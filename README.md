@@ -105,7 +105,7 @@ end
 
 puts form_html
 
-form_html = HexletCode.form_for(user) do |f|
-  f.submit 'Register'
-end
+<form action="#" method="post">
+    <input type="submit" value="Register">
+</form>
 ```
