@@ -19,9 +19,8 @@ module HexletCode
       @form_elements << { type: :input, attribute:, value:, input_type: type, options: }
     end
 
-    def submit(value = 'Save')
-      @submit_text = value
-      @form_elements << { type: :submit, value: }
+    def submit(value = 'Save', options = {})
+      @form_elements << { type: :submit, value:, options: }
     end
 
     def add_default_submit
