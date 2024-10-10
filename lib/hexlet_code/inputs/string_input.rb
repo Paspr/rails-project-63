@@ -4,8 +4,7 @@ module HexletCode
   module Inputs
     class StringInput < BaseInput
       def build
-        filtered_options = options.except(:as)
-        options_str = format_options(filtered_options)
+        options_str = format_options(options)
         if options_str.empty?
           "<input name=\"#{name}\" type=\"text\" value=\"#{value}\">"
         else
