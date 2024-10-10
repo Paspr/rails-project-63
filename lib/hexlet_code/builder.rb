@@ -15,7 +15,7 @@ module HexletCode
 
     def input(attribute, options = {})
       value = @object.send(attribute)
-      type = options.fetch(:as, :input)
+      type = options.fetch(:as, :string)
       @form_elements << { type: :input, attribute:, value:, input_type: type, options: }
     end
 

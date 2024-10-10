@@ -45,11 +45,7 @@ module HexletCode
     end
 
     def select_input_class(input_type)
-      if input_type == :text
-        HexletCode::Inputs::TextInput
-      else
-        HexletCode::Inputs::StringInput
-      end
+      HexletCode::Inputs.const_get("#{input_type.to_s.capitalize}Input")
     end
 
     def build_submit(value)
