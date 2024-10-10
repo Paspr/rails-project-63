@@ -7,10 +7,13 @@ module HexletCode
       COLS = 20
 
       def build
-        rows = options.fetch(:rows, ROWS)
-        cols = options.fetch(:cols, COLS)
-        options_str = format_options(options.except(:rows, :cols))
-        "<textarea name=\"#{name}\" cols=\"#{cols}\" rows=\"#{rows}\"#{options_str}>#{value}</textarea>"
+        result_options = {
+          name:,
+          cols: options.fetch(:cols, COLS),
+          rows: options.fetch(:rows, ROWS)
+        }.merge(options.except(:rows, :cols))
+
+        Tag.build('textarea', result_options, value)
       end
     end
   end
