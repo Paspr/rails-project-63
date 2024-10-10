@@ -2,7 +2,7 @@
 
 module HexletCode
   class Builder
-    attr_reader :form_elements
+    attr_reader :form_elements, :url, :method, :attributes
 
     def initialize(object, url:, method:, **attributes)
       @object = object

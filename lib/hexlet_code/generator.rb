@@ -13,9 +13,9 @@ module HexletCode
 
     def generate
       form_attributes = {
-        action: @form_builder.instance_variable_get(:@url),
-        method: @form_builder.instance_variable_get(:@method)
-      }.merge(@form_builder.instance_variable_get(:@attributes))
+        action: @form_builder.url,
+        method: @form_builder.method
+      }.merge(@form_builder.attributes)
 
       Tag.build('form', form_attributes, form_content)
     end
