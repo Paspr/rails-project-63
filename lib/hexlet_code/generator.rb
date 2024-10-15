@@ -28,22 +28,23 @@ module HexletCode
       content = @form_builder.form_elements.map do |element|
         case element[:type]
         when :input
-          "#{build_label(element[:attribute])}\n#{build_input(element)}"
+          # "#{build_label(element[:attribute])}
+          "\n#{build_input(element)}"
         when :submit
           build_submit(element[:value])
         end
-      end.join("\n")
-      "\n#{indent(content)}\n"
+      end # .join("\n")
+      # "\n#{indent(content)}\n"
     end
 
-    def build_label(attribute)
-      indent(Tag.build('label', { for: attribute }, attribute.capitalize))
-    end
+    # def build_label(attribute)
+    #   indent(Tag.build('label', { for: attribute }, attribute.capitalize))
+    # end
 
     def build_input(element)
       input_class = select_input_class(element[:input_type])
       input_instance = input_class.new(element[:attribute], element[:value], element[:options])
-      indent(input_instance.build)
+      # indent(input_instance.build)
     end
 
     def select_input_class(input_type)

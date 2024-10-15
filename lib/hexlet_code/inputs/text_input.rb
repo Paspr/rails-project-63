@@ -15,6 +15,10 @@ module HexletCode
 
         Tag.build('textarea', result_options, value)
       end
+      label_with_indent = build_label
+      input_with_indent = indent(input_tag)
+
+      "\n#{label_with_indent}\n#{input_with_indent}"
     end
   end
 end
