@@ -14,14 +14,6 @@ module HexletCode
       def format_options(options)
         options.map { |key, value| "#{key}=\"#{value}\"" }.join(' ')
       end
-
-      def build_label(name)
-        indent(Tag.build('label', { for: name }, name.capitalize))
-      end
-
-      def indent(content)
-        content.lines.map { |line| "  #{line}" }.join
-      end
     end
   end
 end

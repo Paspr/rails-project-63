@@ -1,10 +1,12 @@
 # frozen_string_literal: false
 
-require_relative 'inputs/base_input'
-require_relative 'inputs/string_input'
-require_relative 'inputs/text_input'
-
 module HexletCode
+  module Inputs
+    autoload(:BaseInput, 'hexlet_code/inputs/base_input.rb')
+    autoload(:StringInput, 'hexlet_code/inputs/string_input.rb')
+    autoload(:TextInput, 'hexlet_code/inputs/text_input.rb')
+  end
+
   class Generator
     def initialize(form_builder)
       @form_builder = form_builder
@@ -26,23 +28,22 @@ module HexletCode
       content = @form_builder.form_elements.map do |element|
         case element[:type]
         when :input
-          # "#{build_label(element[:attribute])}
-          "\n#{build_input(element)}"
+          "#{build_label(element[:attribute])}\n#{build_input(element)}"
         when :submit
           build_submit(element[:value])
         end
-      end # .join("\n")
-      # "\n#{indent(content)}\n"
+      end.join("\n")
+      "\n#{indent(content)}\n"
     end
 
-    # def build_label(attribute)
-    #   indent(Tag.build('label', { for: attribute }, attribute.capitalize))
-    # end
+    def build_label(attribute)
+      indent(Tag.build('label', { for: attribute }, attribute.capitalize))
+    end
 
     def build_input(element)
       input_class = select_input_class(element[:input_type])
       input_instance = input_class.new(element[:attribute], element[:value], element[:options])
-      # indent(input_instance.build)
+      indent(input_instance.build)
     end
 
     def select_input_class(input_type)
